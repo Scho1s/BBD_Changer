@@ -16,13 +16,12 @@ class AppTable(Table):
         self.bind("<Button-3>", self.popup)
 
     def __populate_columns(self):
-        type_ = None
         for col in self.columns:
             if col == 'DEX_ROW_ID':
                 type_ = int
             else:
                 type_ = str
-            self.heading(col, text=col)
+            self.heading(col, text=col, anchor="w")
             self.column(col, width=150, stretch=False, type=type_)
 
     def clear_table(self):
@@ -70,6 +69,7 @@ class App(tk.Tk):
         self.minsize(630, 300)
         self.resizable(False, False)
         self.title("BBD Changer")
+        self.iconbitmap('source\\Dynamics-Waves.ico')
         self.columnconfigure(2, weight=1)
         self.rowconfigure(2, weight=1)
 
@@ -79,7 +79,7 @@ class App(tk.Tk):
 
     def __define_styles(self):
         self.style = ttk.Style(self)
-        self.tk.call('source', 'source\\forest-dark.tcl')
+        self.call('source', 'source\\forest-dark.tcl')
         self.style.theme_use('forest-dark')
 
         self.button_style = ttk.Style(self)
@@ -101,7 +101,7 @@ class App(tk.Tk):
 
         self.app_table = AppTable(self)
         self.app_table.grid(column=0, row=2, sticky='enws', columnspan=5, padx=(5, 0))
-        self.app_table.sx.grid(column=0, row=3, sticky='ew', columnspan=5)
+        self.app_table.sx.grid(column=0, row=3, sticky='ew', columnspan=5, padx=(5, 0))
         self.app_table.sy.grid(column=5, row=2, sticky='ns')
 
         self.query_button = ttk.Button(self, text="Query", command=self.query_data)
